@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from app import Jug, JugsProblem
 
 st.title("Welcome to Water Jug Problem!")
@@ -13,8 +14,10 @@ if "problem" not in st.session_state:
     st.session_state["problem"] = problem_1
 
 def check():
-    st.session_state["problem"].status()
-    return [jug for jug in st.session_state.problem.jugs]
+    data = {}
+    for jug in st.session_state.problem.jugs:
+        data[jug.name] = [jug.current]
+    return data
 
 status = check()
 
@@ -56,5 +59,6 @@ with col1:
         check()
 
 with col2:
-    st.write(status)
+    #st.write(status)
+    st.bar_chart(pd.DataFrame(data=status).T)
 
