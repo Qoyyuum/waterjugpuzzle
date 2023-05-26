@@ -5,6 +5,13 @@ st.title("Welcome to Water Jug Problem!")
 st.write("You will be presented with problems where you can fill, empty and transfer water volumes of each jug to reach the target goal.")
 st.write("Problem: 1.\nThere are 2 jugs. Jug A has a maximum capacity of 3 litres and Jug B has 5 litres. Your target goal: How to get a jug with only 4 litres?")
 
+jug_a = Jug("A", 0, 3)
+jug_b = Jug("B", 0, 5)
+jugs = [jug_a, jug_b]
+problem_1 = JugsProblem(jugs=jugs, goal=4)
+if "problem" not in st.session_state:
+    st.session_state["problem"] = problem_1
+
 def check():
     st.session_state["problem"].status()
     return [jug for jug in st.session_state.problem.jugs]
@@ -49,14 +56,5 @@ with col1:
         check()
 
 with col2:
-    jug_a = Jug("A", 0, 3)
-    jug_b = Jug("B", 0, 5)
-    jugs = [jug_a, jug_b]
-    problem_1 = JugsProblem(jugs=jugs, goal=4)
-    if "problem" not in st.session_state:
-        st.session_state["problem"] = problem_1
-        #st.write(st.session_state["problem"].status())
     st.write(status)
-    #for jug in st.session_state["problem"].jugs:
-        #st.write(f"Jug {jug.name} ({jug.current}/{jug.maximum_capacity})")
 
